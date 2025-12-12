@@ -1,0 +1,158 @@
+﻿@model N3C_348209_parodi_client.Models.Dtos.Payment.AddPaymentDto
+
+@{
+    ViewData["Title"] = "Alta de Pago";
+}
+
+<h2 class="mt-4 text-center">Alta de Pago</h2>
+
+<div class="row justify-content-center mt-4">
+    <div class="col-md-6">
+
+        <form asp-action="Create" method="post">
+
+            <div class="mb-3">
+                <label asp-for="ExpenseId" class="form-label">Tipo de Gasto</label>
+                <select asp-for="ExpenseId" class="form-control">
+                    <option value="">-- Seleccione un gasto --</option>
+                                @foreach (var expense in ViewBag.Expenses)
+                                {
+                            <option value="@expense.Id">@expense.Name</option>
+                                }
+                </select>
+                <span asp-validation-for="ExpenseId" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Description" class="form-label">Descripción</label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Amount" class="form-label">Monto</label>
+                <input asp-for="Amount" class="form-control" type="number" step="0.01" />
+                <span asp-validation-for="Amount" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="form-label">Método de Pago</label>
+                <select name="PaymentMethod" class="form-control" required>
+                    <option value="">-- Seleccione método --</option>
+                    <option value="Credito">Crédito</option>
+                    <option value="Efectivo">Efectivo</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="PaymentType" class="form-label">Tipo de Pago</label>
+               <select asp-for="PaymentType" class="form-control" id="paymentTypeSelect" onchange="togglePayDate()">
+                    <option value="">-- Seleccione tipo de pago --</option>
+                    <option value="Unique">Único</option>
+                    <option value="Recurring">Recurrente</option>
+                </select>
+                <span asp-validation-for="PaymentType" class="text-danger"></span>
+            </div>
+
+            <div class="row" id="dateRangeDiv" style="display:none;">
+                <div class="col-md-3">
+                    <label asp-for="DateFrom" class="form-label">Fecha Desde</label>
+                    <input asp-for="DateFrom" class="form-control" type="date" />
+                    <span asp-validation-for="DateFrom" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-3">
+                    <label asp-for="DateTill" class="form-label">Fecha Hasta</label>
+                    <input asp-for="DateTill" class="form-control" type="date" />
+                    <span asp-validation-for="DateTill" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mb-3" id="payDateDiv" style="display:none;">
+                <label asp-for="PayDate" class="form-label">Fecha de Pago</label>
+                <input asp-for="PayDate" class="form-control" type="date" />
+                <span asp-validation-for="PayDate" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3" id="billNumberDiv" style="display:none;">
+                <label asp-for="BillNumber" class="form-label">Número de Comprobante</label>
+                <input asp-for="BillNumber" class="form-control" />
+                <span asp-validation-for="BillNumber" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="UserId" class="form-label">Usuario</label>
+                <select asp-for="UserId" class="form-control">
+                    <option value="">-- Seleccione un usuario --</option>
+                                @foreach (var user in ViewBag.Users)
+                                {
+                            <option value="@user.Id">@user.Email</option>
+                                }
+                </select>
+                <span asp-validation-for="UserId" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-success w-100">
+                Crear Pago
+            </button>
+
+        </form>
+
+        @if (ViewBag.Message != null)
+        {
+        <div class="alert alert-danger mt-4 text-center">
+                @ViewBag.Message
+        </div>
+        }
+
+        @if (ViewBag.CreatedMessage != null)
+        {
+        <div class="alert alert-success mt-4 text-center">
+                @ViewBag.CreatedMessage
+        </div>
+        }
+
+    </div>
+</div>
+
+<script>
+    function togglePayDate() {
+        var paymentType = document.getElementById('paymentTypeSelect').value;
+
+        var payDateDiv = document.getElementById('payDateDiv');
+        var dateRangeDiv = document.getElementById('dateRangeDiv');
+        var billNumberDiv = document.getElementById('billNumberDiv');
+
+        if (paymentType === 'Unique') {
+            // Solo Unique
+            payDateDiv.style.display = 'block';
+            billNumberDiv.style.display = 'block';
+
+            // No recurrentes
+            dateRangeDiv.style.display = 'none';
+        }
+        else if (paymentType === 'Recurring') {
+            // Solo recurrentes
+            dateRangeDiv.style.display = 'flex';
+
+            // No unique
+            payDateDiv.style.display = 'none';
+            billNumberDiv.style.display = 'none';
+        }
+        else {
+            // Nada seleccionado
+            payDateDiv.style.display = 'none';
+            billNumberDiv.style.display = 'none';
+            dateRangeDiv.style.display = 'none';
+        }
+    }
+
+    window.onload = function () {
+        togglePayDate();
+    };
+</script>
+
+
+@section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+}

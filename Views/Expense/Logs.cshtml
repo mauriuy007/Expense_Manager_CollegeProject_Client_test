@@ -1,0 +1,49 @@
+﻿@using N3C_348209_parodi_client.Models.Dtos.Log
+@model IEnumerable<LogDto>
+
+<h2>Logs por Tipo de Gasto</h2>
+
+<form method="post" asp-action="Logs">
+    <label>Seleccione un gasto</label>
+    <select name="expenseId" class="form-control" required>
+        <option value="">-- Seleccione --</option>
+        @foreach (var e in (IEnumerable<dynamic>)ViewBag.Expenses)
+        {
+                <option value="@e.Id">@e.Name</option>
+        }
+    </select>
+    <button type="submit" class="btn btn-primary mt-3">Buscar Logs</button>
+</form>
+
+@if (Model != null && Model.Any())
+{
+        <table class="table mt-4">
+            <thead>
+                <tr>
+                    <th>Id Log</th>
+                    <th>Mensaje</th>
+                    <th>Operación</th>
+                    <th>Fecha</th>
+                    <th>ExpenseId</th>
+                    <th>UserId</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var log in Model)
+            {
+                        <tr>
+                            <td>@log.Id</td>
+                            <td>@log.Message</td>
+                            <td>@log.Operation</td>
+                            <td>@log.DateTime</td>
+                            <td>@log.ExpenseId</td>
+                            <td>@log.UserId</td>
+                        </tr>
+            }
+            </tbody>
+        </table>
+}
+@if (ViewBag.Error != null)
+{
+        <div class="alert alert-warning mt-3">@ViewBag.Error</div>
+}

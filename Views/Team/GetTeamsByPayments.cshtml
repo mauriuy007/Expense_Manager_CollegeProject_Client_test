@@ -1,0 +1,54 @@
+﻿@using N3C_348209_parodi_client.Models.Dtos.Team
+@model IEnumerable<TeamDto>
+
+@{
+    ViewData["Title"] = "Equipos por pagos mayores a un monto";
+}
+
+<h2 class="mt-4 text-center">Equipos con Pagos Mayores al Monto</h2>
+
+<div class="row justify-content-center mt-4">
+    <div class="col-md-4">
+
+        <form asp-action="GetTeams" method="get">
+
+            <div class="form-group mb-3">
+                <label class="form-label">Monto mínimo</label>
+                <input type="number" step="0.01" name="amount" class="form-control" placeholder="Ej: 500" required />
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">
+                Buscar Equipos
+            </button>
+
+        </form>
+    </div>
+</div>
+
+@if (ViewBag.Message != null)
+{
+        <div class="alert alert-info mt-4 text-center">
+        @ViewBag.Message
+        </div>
+}
+
+@if (Model != null && Model.Any())
+{
+        <hr />
+
+        <table class="table table-striped table-bordered mt-4">
+            <thead class="table-dark">
+                <tr>
+                    <th>Nombre</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var t in Model)
+            {
+                        <tr>
+                            <td>@t.Name</td>
+                        </tr>
+            }
+            </tbody>
+        </table>
+}
