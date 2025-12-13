@@ -32,7 +32,7 @@ This is a simple, instrumental, academic client.
 
 ---
 
-🏗️ Project Structure (Client)
+# 🏗️ Project Structure (Client)
 
 
 ```
