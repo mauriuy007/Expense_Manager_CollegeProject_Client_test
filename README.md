@@ -34,6 +34,8 @@ This is a simple, instrumental, academic client.
 
 🏗️ Project Structure (Client)
 
+
+```
 📦 N3C_348209_Client/
 
 # MVC controllers that consume the API
@@ -58,6 +60,7 @@ This is a simple, instrumental, academic client.
 
 # Backend URL + client settings
 └── appsettings.json
+```
 
 
 
