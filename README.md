@@ -35,23 +35,30 @@ This is a simple, instrumental, academic client.
 🏗️ Project Structure (Client)
 
 📦 N3C_348209_Client/
-|
-├── Controllers/                         # MVC controllers that consume the API
-|   ├── UserController.cs
-|   ├── ExpenseController.cs
-|   ├── PaymentController.cs
-|   └── TeamController.cs
-|
-├── Views/                               # Views associated with each controller
-|   ├── User/
-|   ├── Expense/
-|   ├── Payment/
-|   └── Team/
-|
-├── Models/                              # DTOs used to send/receive data
-|
-├── Program.cs                           # Basic configuration
-└── appsettings.json                     # Backend URL + client settings
+
+# MVC controllers that consume the API
+├── Controllers/
+│   ├── UserController.cs
+│   ├── ExpenseController.cs
+│   ├── PaymentController.cs
+│   └── TeamController.cs
+
+# Views associated with each controller
+├── Views/
+│   ├── User/
+│   ├── Expense/
+│   ├── Payment/
+│   └── Team/
+
+# DTOs used to send / receive data
+├── Models/
+
+# Basic configuration
+├── Program.cs
+
+# Backend URL + client settings
+└── appsettings.json
+
 
 
 
