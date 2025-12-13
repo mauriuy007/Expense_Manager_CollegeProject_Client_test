@@ -1,134 +1,119 @@
-# 🖥️ Cliente MVC — Interfaz para API del Sistema de Gestión de Gastos
+# 🖥️ MVC Client — Interface for the Expense Management System API
 
-Este repositorio contiene el **cliente MVC utilizado para consumir las APIs** del proyecto *Sistema de Gestión de Gastos* (Obligatorio Programación 3).
+This repository contains the MVC client used to consume the APIs of the Expense Management System project (Programming 3 — Mandatory Assignment).
 
-➡️ **Importante:** Este cliente **no sigue Clean Architecture**, ni una estructura organizada.  
-Se desarrolló únicamente con el objetivo de **aprender**:
+Important: This client does not follow Clean Architecture nor a well-organized structure.
+It was developed solely with the goal of learning:
 
-- Cómo consumir APIs desde controladores MVC  
-- Cómo estructurar requests desde el cliente  
-- Cómo manejar DTOs para enviar datos al servidor  
-- Cómo funciona la interacción Cliente ⇄ Servidor en ASP.NET MVC  
-
----
-
-## 🧠 ¿Qué hace este cliente?
-
-El cliente permite:
-
-- Enviar datos a la API del backend  
-- Mostrar información devuelta por la API  
-- Crear usuarios, pagos, gastos, equipos (dependiendo de lo implementado)  
-- Validar que los endpoints del servidor funcionen correctamente  
-- Interactuar con la API sin Postman, usando únicamente vistas MVC  
-
-No implementa:
-- Clean Architecture  
-- Validaciones completas  
-- Manejo de errores avanzado  
-- Seguridad (más allá de enviar JWT si corresponde)  
-
-Es un cliente **simple, instrumental y académico**.
+- How to consume APIs from MVC controllers
+- How to structure requests from a client application
+- How to handle DTOs to send data to the server
+- How Client ⇄ Server interaction works in ASP.NET MVC
 
 ---
 
-# 🏗️ Estructura del Proyecto (Cliente)
+## 🧠 What does this client do?
 
-```
+The client allows you to:
+
+- Send data to the backend API
+- Display information returned by the API
+- Create users, payments, expenses, teams (depending on what is implemented)
+- Validate that server endpoints work correctly
+- Interact with the API without Postman, using only MVC views
+
+It does NOT implement:
+- Clean Architecture
+- Full validations
+- Advanced error handling
+- Security (beyond sending a JWT when required)
+
+This is a simple, instrumental, academic client.
+
+---
+
+# 🏗️ Project Structure (Client)
+
 📦 N3C_348209_Client/
 │
-├── 📁 Controllers/          # Controladores MVC que consumen la API
+├── Controllers/          # MVC controllers that consume the API
 │   ├── UserController.cs
 │   ├── ExpenseController.cs
 │   ├── PaymentController.cs
 │   └── TeamController.cs
 │
-├── 📁 Views/                # Vistas asociadas a cada controlador
+├── Views/                # Views associated with each controller
 │   ├── User/
 │   ├── Expense/
 │   ├── Payment/
 │   └── Team/
 │
-├── 📁 Models/               # DTOs usados para enviar/recibir datos
+├── Models/               # DTOs used to send/receive data
 │
-├── Program.cs               # Configuración básica
-└── appsettings.json         # URL del backend + settings del cliente
-```
+├── Program.cs            # Basic configuration
+└── appsettings.json      # Backend URL + client settings
 
 ---
 
-# 🔌 Comunicación con el Backend
+# 🔌 Backend Communication
 
-Este cliente envía requests al backend mediante:
+This client sends requests to the backend using:
 
-- `HttpClient`
-- DTOs locales que coinciden con los del backend
-- JSON enviado vía POST / PUT
-- Endpoints definidos en el proyecto del servidor
+- HttpClient
+- Local DTOs matching the backend DTOs
+- JSON payloads via POST / PUT
+- Endpoints defined in the server project
 
-Ejemplo general de pegada:
+General request example (conceptual):
 
-```csharp
-var json = JsonConvert.SerializeObject(dto);
-var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-var response = await _httpClient.PostAsync("https://tuservidor/api/expenses", content);
-```
+Serialize DTO to JSON  
+Create StringContent with application/json  
+Send POST request to https://yourserver/api/expenses using HttpClient  
 
 ---
 
-# 🌐 Requisitos
+# 🌐 Requirements
 
-- Tener corriendo **el servidor backend** (API).  
-- Configurar la URL de la API en `appsettings.json`:
+- The backend server (API) must be running.
+- Configure the API URL in appsettings.json:
 
-```json
-{
-  "ApiUrl": "https://localhost:7010/api"
-}
-```
+ApiUrl: https://localhost:7010/api
 
-- Ejecutar el proyecto en Visual Studio o VS Code.
+- Run the project using Visual Studio or VS Code.
 
 ---
 
-# 🚀 Cómo Ejecutarlo
+# 🚀 How to Run
 
-1. Clonar el repositorio:
+1. Clone the repository:
+   git clone https://github.com/youruser/N3C_348209_Client.git
 
-```bash
-git clone https://github.com/tuusuario/N3C_348209_Client.git
-```
+2. Configure the backend URL in appsettings.json.
 
-2. Configurar la URL del backend en `appsettings.json`.
+3. Run the project:
+   F5 in Visual Studio
+   or
+   dotnet run
 
-3. Ejecutar el proyecto:
-
-```
-F5 en Visual Studio      — o —
-dotnet run
-```
-
-4. Navegar por las vistas y probar las interacciones con la API.
+4. Navigate through the views and test API interactions.
 
 ---
 
-# 📌 Aclaración sobre la calidad del código
+# 📌 Code Quality Disclaimer
 
-Este cliente **no está diseñado como un proyecto final profesional**.  
-Se creó exclusivamente para:
+This client is not intended to be a professional, production-ready project.
+It was created exclusively to:
 
-- aprender la comunicación MVC → API  
-- validar los casos de uso del backend  
-- practicar consumo de endpoints  
-- avanzar en Programación 3  
+- Learn MVC → API communication
+- Validate backend use cases
+- Practice endpoint consumption
+- Progress in Programming 3
 
-No representa un frontend real ni una arquitectura limpia.
+It does not represent a real frontend nor a clean architecture.
 
 ---
 
-# 🧑‍💻 Autor
+# 🧑‍💻 Author
 
-Desarrollado por **Mauricio Parodi** 🇺🇾  
-Cliente MVC del obligatorio de **Programación 3 – Universidad ORT**.
-
+Developed by Mauricio Parodi 🇺🇾
+MVC client for the Programming 3 mandatory assignment – ORT University.
